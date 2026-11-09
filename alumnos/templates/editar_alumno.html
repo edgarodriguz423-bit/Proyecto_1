@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar alumno | Mi Escuela{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <a href="{% url 'lista_alumnos' %}" class="btn-back">
+        <i class="bi bi-arrow-left"></i> Volver a lista
+    </a>
+    <h1 class="page-title">Editar alumno</h1>
+</div>
+
+<div class="form-card">
+    <div class="form-card-header">
+        <div class="form-card-icon">
+            <i class="bi bi-person-fill-gear"></i>
+        </div>
+        <div>
+            <p class="form-card-title">Actualizar información</p>
+            <p class="form-card-subtitle">Modifica los datos del alumno y guarda los cambios.</p>
+        </div>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-card-body">
+            {{ formulario.as_p }}
+        </div>
+        <div class="form-card-footer">
+            <a href="{% url 'lista_alumnos' %}" class="btn btn-outline-secondary btn-sm">
+                Cancelar
+            </a>
+            <button type="submit" class="btn-save">
+                <i class="bi bi-check-lg"></i> Guardar cambios
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block titulo %}Alumnos | Mi Escuela{% endblock %}
+
+{% block contenido %}
+<section class="students-page">
+    <header class="students-header">
+        <div>
+            <h1 class="students-heading">Alumnos</h1>
+            <p class="students-description">Consulta y administra los registros de alumnos.</p>
+        </div>
+        <a href="{% url 'crear_alumno' %}" class="btn-new-student">
+            <i class="bi bi-person-plus-fill"></i> Nuevo alumno
+        </a>
+        <a href="{% url 'crear_materia' %}" class="btn-new-student">
+            <i class="bi bi-journal-plus"></i> Nueva materia
+        </a>
+    </header>
+
+    <div class="students-table-card">
+        <div class="students-table-wrap">
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido paterno</th>
+                        <th scope="col">Apellido materno</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Carrera</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alumno in alumnos %}
+                    <tr>
+                        <td class="student-name">{{ alumno.nombre }}</td>
+                        <td>{{ alumno.apellido_paterno }}</td>
+                        <td>{{ alumno.apellido_materno }}</td>
+                        <td>{{ alumno.edad }}</td>
+                        <td><span class="career-badge">{{ alumno.carrera.nombre }}</span></td>
+                        <td>
+                            <div class="student-actions">
+                                <a href="{% url 'detalle_alumno' alumno.id %}" class="student-action student-action-view" title="Ver detalle" aria-label="Ver detalle de {{ alumno.nombre }}">
+                                    <i class="bi bi-eye"></i><span>Ver detalle</span>
+                                </a>
+                                <a href="{% url 'editar_alumno' alumno.id %}" class="student-action student-action-edit" title="Editar" aria-label="Editar a {{ alumno.nombre }}">
+                                    <i class="bi bi-pencil-square"></i><span>Editar</span>
+                                </a>
+                                <a href="{% url 'eliminar_alumno' alumno.id %}" class="student-action student-action-delete" title="Eliminar" aria-label="Eliminar a {{ alumno.nombre }}">
+                                    <i class="bi bi-trash3"></i><span>Eliminar</span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="students-empty">
+                            <i class="bi bi-people"></i>
+                            Aún no hay alumnos registrados.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

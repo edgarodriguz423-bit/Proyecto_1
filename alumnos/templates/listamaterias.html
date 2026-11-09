@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block titulo %}Materias | Mi Escuela{% endblock %}
+
+{% block contenido %}
+<section class="students-page">
+    <header class="students-header">
+        <div>
+            <h1 class="students-heading">Materias</h1>
+            <p class="students-description">Consulta las materias y las carreras a las que pertenecen.</p>
+        </div>
+        <a href="{% url 'crear_materia' %}" class="btn-new-student">
+            <i class="bi bi-journal-plus"></i> Nueva materia
+        </a>
+    </header>
+
+    <div class="students-table-card">
+        <div class="students-table-wrap">
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Materia</th>
+                        <th scope="col">Carrera</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for materia in materias %}
+                    <tr>
+                        <td class="student-name">{{ materia.nombre }}</td>
+                        <td><span class="career-badge">{{ materia.carrera.nombre }}</span></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="students-empty">
+                            <i class="bi bi-journal-bookmark"></i>
+                            Aún no hay materias registradas.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

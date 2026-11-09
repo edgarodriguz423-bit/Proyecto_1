@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block titulo %}Carreras | Mi Escuela{% endblock %}
+
+{% block contenido %}
+<section class="students-page">
+    <header class="students-header">
+        <div>
+            <h1 class="students-heading">Carreras</h1>
+            <p class="students-description">Consulta las carreras registradas en el sistema.</p>
+        </div>
+    </header>
+
+    <div class="students-table-card">
+        <div class="students-table-wrap">
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Duración</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for carrera in carreras %}
+                    <tr>
+                        <td>{{ carrera.codigo }}</td>
+                        <td class="student-name">{{ carrera.nombre }}</td>
+                        <td>{{ carrera.duracion }} cuatrimestres</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="students-empty">
+                            <i class="bi bi-building"></i>
+                            Aún no hay carreras registradas.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

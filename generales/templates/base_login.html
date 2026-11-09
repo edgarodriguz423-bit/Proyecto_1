@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block titulo %}Mi Escuela{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh; display: flex;
+      background:
+        radial-gradient(ellipse at 18% 45%, rgba(0, 229, 255, 0.12), transparent 34rem),
+        radial-gradient(ellipse at 78% 12%, rgba(185, 103, 255, 0.18), transparent 32rem),
+        repeating-linear-gradient(0deg, transparent 0, transparent 39px, rgba(103, 148, 190, 0.025) 40px),
+        repeating-linear-gradient(90deg, transparent 0, transparent 39px, rgba(103, 148, 190, 0.025) 40px),
+        #080d18;
+    }
+
+    /* Panel izquierdo decorativo */
+    .login-left {
+      display: none;
+      flex: 1; align-items: center; justify-content: center;
+      flex-direction: column; gap: 1.5rem; padding: 3rem;
+      position: relative; overflow: hidden;
+    }
+    @media (min-width: 900px) { .login-left { display: flex; } }
+
+    .brand-big {
+      display: flex; align-items: center; gap: 1rem;
+      color: #eff6ff; font-size: 1.75rem; font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .brand-big-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      border: 1px solid rgba(0, 229, 255, 0.4);
+      background: linear-gradient(135deg, #00e5ff, #537bff 60%, #b967ff);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: #07111d;
+      box-shadow: 0 0 28px rgba(0, 229, 255, 0.22);
+    }
+    .brand-tagline { color: #91a4bc; font-size: 1rem; line-height: 1.7; text-align: center; max-width: 340px; }
+    .decorative-dots { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #00e5ff; opacity: 0.5; box-shadow: 0 0 12px rgba(0, 229, 255, 0.65); }
+    .dot:nth-child(2) { background: #b967ff; opacity: 0.75; }
+    .dot:nth-child(3) { background: #ff5277; opacity: 1; }
+
+    /* Panel derecho (formulario) */
+    .login-right {
+      width: 100%; max-width: 520px; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem; margin-left: auto;
+      background: rgba(8, 13, 24, 0.72);
+      border-left: 1px solid rgba(137, 166, 204, 0.14);
+      backdrop-filter: blur(16px);
+    }
+    @media (min-width: 900px) { .login-right { border-radius: 0; } }
+
+    .login-card {
+      width: 100%; max-width: 420px;
+      background: linear-gradient(155deg, rgba(21, 34, 54, 0.98), rgba(13, 23, 38, 0.98));
+      border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 18px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45), 0 0 32px rgba(0, 229, 255, 0.08);
+      padding: 2.5rem;
+      animation: login-card-enter 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    @keyframes login-card-enter {
+      from { opacity: 0; transform: translateY(22px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .login-header { text-align: center; margin-bottom: 2rem; }
+    .login-icon {
+      width: 56px; height: 56px; border-radius: 16px; margin: 0 auto 1rem;
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(185, 103, 255, 0.24));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: #00e5ff;
+      box-shadow: 0 0 22px rgba(0, 229, 255, 0.13);
+    }
+    .login-title { font-size: 1.5rem; font-weight: 700; color: #eff6ff; letter-spacing: 0.01em; }
+    .login-subtitle { font-size: 0.875rem; color: #91a4bc; margin-top: 0.3rem; }
+
+    label {
+      display: block; font-size: 0.78rem; font-weight: 600;
+      color: #a9bad0; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 0.4rem; margin-top: 1rem;
+    }
+    input[type=text], input[type=password], input[type=email] {
+      width: 100%; padding: 0.65rem 0.9rem; font-size: 0.9rem;
+      border: 1px solid rgba(137, 166, 204, 0.2); border-radius: 10px;
+      background: #0b1422; color: #e8f1ff; outline: none;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input::placeholder { color: #71839b; }
+    input:focus {
+      border-color: #00e5ff;
+      box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.12), 0 0 18px rgba(0, 229, 255, 0.08);
+      background: #0b1422;
+    }
+    .btn-submit {
+      width: 100%; margin-top: 1.5rem; padding: 0.75rem;
+      font-size: 0.95rem; font-weight: 700; color: #07111d;
+      background: linear-gradient(100deg, #00e5ff, #6ea8ff 55%, #b967ff);
+      border: 1px solid rgba(0, 229, 255, 0.45); border-radius: 10px; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: filter 0.18s, transform 0.18s, box-shadow 0.18s;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      box-shadow: 0 8px 24px rgba(0, 229, 255, 0.16);
+    }
+    .btn-submit:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 229, 255, 0.24); }
+    .btn-submit:active { transform: translateY(0); }
+
+    .error-box {
+      padding: 0.75rem 1rem; background: rgba(255, 82, 119, 0.12);
+      border: 1px solid rgba(255, 82, 119, 0.28); color: #ff9aaf; border-radius: 10px;
+      font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .error-campo { display: block; color: #ff829b; font-size: 0.78rem; margin-top: 0.25rem; }
+
+    .login-footer { text-align: center; margin-top: 1.5rem; font-size: 0.875rem; color: #91a4bc; }
+    .login-footer a { color: #00e5ff; font-weight: 600; text-decoration: none; }
+    .login-footer a:hover { text-decoration: underline; }
+
+    .msg-success {
+      padding: 0.75rem 1rem; background: rgba(0, 229, 160, 0.1);
+      border: 1px solid rgba(0, 229, 160, 0.25); color: #77f0c7; border-radius: 10px;
+      font-size: 0.875rem; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .helptext, .helptext ul { font-size: 0.75rem; color: #91a4bc; margin-top: 0.3rem; }
+
+    @media (max-width: 899px) {
+      .login-right { max-width: none; padding: 1.25rem; border-left: 0; }
+      .login-card { padding: 2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .login-card { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-left">
+    <div class="brand-big">
+      <div class="brand-big-icon"><i class="bi bi-mortarboard-fill"></i></div>
+      Mi Escuela
+    </div>
+    <p class="brand-tagline">Sistema de Gestión Escolar — Administra alumnos, materias y carreras desde un solo lugar.</p>
+    <div class="decorative-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-card">
+      {% if messages %}
+        {% for m in messages %}
+          <div class="msg-success"><i class="bi bi-check-circle-fill"></i> {{ m }}</div>
+        {% endfor %}
+      {% endif %}
+      {% block contenido %}{% endblock %}
+    </div>
+  </div>
+
+</body>
+</html>

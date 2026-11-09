@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Registrar materia | Mi Escuela{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <a href="{% url 'lista_materias' %}" class="btn-back">
+        <i class="bi bi-arrow-left"></i> Volver
+    </a>
+    <h1 class="page-title">Nueva materia</h1>
+</div>
+
+<section class="form-card">
+    <div class="form-card-header">
+        <div class="form-card-icon">
+            <i class="bi bi-journal-plus"></i>
+        </div>
+        <div>
+            <p class="form-card-title">Registrar materia</p>
+            <p class="form-card-subtitle">Completa los datos de la nueva materia.</p>
+        </div>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-card-body">
+            {{ formulario.as_p }}
+        </div>
+        <div class="form-card-footer">
+            <a href="{% url 'lista_materias' %}" class="btn btn-outline-secondary">
+                Cancelar
+            </a>
+            <button type="submit" class="btn-save">
+                <i class="bi bi-check-lg"></i> Guardar materia
+            </button>
+        </div>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+body{
+    font-family: Arial, sans-serif;
+    background-color: aqua;
+    margin: 0;
+    padding: 30px;
+    color:rgb(12, 194, 109);
+}
+
+h1{
+    text-align: center;
+    color:rgb(130, 228, 18);
+    margin-bottom: 20px;
+}
+
+p{
+    background-color: rgb(12, 194, 109);
+    padding: 10px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(5, 255, 117, 0.1);
+}
+strong{
+    color: rgb(13, 231, 130);
+}
+
+

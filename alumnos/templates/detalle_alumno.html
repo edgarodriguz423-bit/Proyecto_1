@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Detalle de alumno | Mi Escuela{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <a href="{% url 'lista_alumnos' %}" class="btn-back">
+        <i class="bi bi-arrow-left"></i> Volver a alumnos
+    </a>
+    <h1 class="page-title">Perfil del alumno</h1>
+</div>
+
+<section class="detail-card">
+    <header class="detail-card-header">
+        <div class="detail-card-icon">
+            <i class="bi bi-person-vcard-fill"></i>
+        </div>
+        <div>
+            <h2 class="detail-card-title">{{ alumno.nombre }} {{ alumno.apellido_paterno }}</h2>
+            <p class="detail-card-subtitle">Información del registro estudiantil</p>
+        </div>
+    </header>
+    <div class="detail-grid">
+        <div class="detail-item">
+            <span class="detail-label">Nombre</span>
+            <span class="detail-value">{{ alumno.nombre }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Apellido paterno</span>
+            <span class="detail-value">{{ alumno.apellido_paterno }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Apellido materno</span>
+            <span class="detail-value">{{ alumno.apellido_materno }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Edad</span>
+            <span class="detail-value">{{ alumno.edad }} años</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Carrera</span>
+            <span class="detail-value">{{ alumno.carrera.nombre }}</span>
+        </div>
+    </div>
+    <footer class="detail-card-footer">
+        <a href="{% url 'editar_alumno' alumno.id %}" class="student-action student-action-edit">
+            <i class="bi bi-pencil-square"></i> Editar
+        </a>
+        <a href="{% url 'eliminar_alumno' alumno.id %}" class="student-action student-action-delete">
+            <i class="bi bi-trash3"></i> Eliminar
+        </a>
+    </footer>
+</section>
+{% endblock %}
